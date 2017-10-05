@@ -7,9 +7,11 @@ This Project is the twelfth task of the Udacity Self-Driving Car Nanodegree prog
 ## Results
 
 KITTI Road segmentation (main task of the project):
+
 ![title.gif animation](readme_img/title.gif)
 
 Cityscapes multiclass segmentation (optional task):
+
 ![title_cityscapes.gif animation](readme_img/title_cityscapes.gif)
 
 ## Content of this repo
