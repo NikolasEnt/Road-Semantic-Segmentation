@@ -27,14 +27,14 @@ Cityscapes multiclass segmentation (optional task):
 
 ### Architecture
 
-A Fully Convolutional Network (FCN-8 Architecture developed at Berkeley, see [paper](https://people.eecs.berkeley.edu/~jonlong/long_shelhamer_fcn.pdf) ) was applied for the project. It uses VGG16 pretrained on ImageNet as a encoder.
+A Fully Convolutional Network (FCN-8 Architecture developed at Berkeley, see [paper](https://people.eecs.berkeley.edu/~jonlong/long_shelhamer_fcn.pdf) ) was applied for the project. It uses VGG16 pretrained on ImageNet as an encoder.
 Decoder is used to upsample features, extracted by the VGG16 model, to the original image size. The decoder is based on transposed convolution layers.
 
 The goal is to assign each pixel of the input image to the appropriate class (road, backgroung, etc). So, it is a classification problem, that is why, cross entropy loss was applied.
 
 ### Setup
 
-Hyperparameters were chosen by try-and-error process. Adam optimizer was used as a well-established optimizer. Weights were initialized by a random normal initializer. Some benefits of L2 weights regularization were observed, therefore, it was applied in order to reduce grainy edges of masks.
+Hyperparameters were chosen by the try-and-error process. Adam optimizer was used as a well-established optimizer. Weights were initialized by a random normal initializer. Some benefits of L2 weights regularization were observed, therefore, it was applied in order to reduce grainy edges of masks.
 
 ### Augmentation
 
@@ -47,7 +47,7 @@ def bc_img(img, s = 1.0, m = 0.0):
     img[img > 255] = 255
     img[img < 0] = 0
     img = img.astype(np.uint8)
-return img   
+    return img   
 ```
 
 ![1.png](readme_img/1.png)
