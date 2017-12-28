@@ -1,4 +1,5 @@
 import re
+import cv2
 import random
 import numpy as np
 import os.path
@@ -90,8 +91,8 @@ gt_input = []
 def load_data():
     image_paths = os.listdir(gt_dataset_dir)
     for image_file in image_paths:
-        gt_image = scipy.misc.imread(os.path.join(gt_dataset_dir, image_file))
-        image = scipy.misc.imread(os.path.join(train_dataset_dir, image_file[:-5]+'.png'))
+        gt_image = cv2.imread(os.path.join(gt_dataset_dir, image_file))
+        image = cv2.imread(os.path.join(train_dataset_dir, image_file[:-5]+'.png'))
         gt_input.append(gt_image)
         img_input.append(image)
 
@@ -115,11 +116,11 @@ def gen_batch_function(data_folder, image_shape):
             images = []
             gt_images = []
             for image_file in image_paths[batch_i:batch_i+batch_size]:
-                gt_image = scipy.misc.imread(os.path.join(gt_dataset_dir, image_file))
-                image = scipy.misc.imread(os.path.join(train_dataset_dir, image_file[:-5]+'.png'))
+                gt_image = cv2.imread(os.path.join(gt_dataset_dir, image_file))
+                image = cv2.imread(os.path.join(train_dataset_dir, image_file[:-5]+'.png'))
                 image, gt_image = random_crop(image, gt_image) #Random crop augmentation
-                image = scipy.misc.imresize(image, image_shape)
-                gt_image = scipy.misc.imresize(gt_image, image_shape)
+                image = cv2.resize(image, image_shape)
+                gt_image = cv2.resize(gt_image, image_shape)
                 contr = random.uniform(0.85, 1.15) # Contrast augmentation
                 bright = random.randint(-40, 30) # Brightness augmentation
                 image = bc_img(image, contr, bright)

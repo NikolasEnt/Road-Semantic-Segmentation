@@ -1,4 +1,5 @@
 import re
+import cv2
 import random
 import numpy as np
 import os.path
@@ -103,14 +104,14 @@ def gen_batch_function(data_folder, image_shape):
             gt_images = []
             for image_file in image_paths[batch_i:batch_i+batch_size]:
                 gt_image_file = label_paths[os.path.basename(image_file)]
-                image = scipy.misc.imread(image_file)
-                gt_image = scipy.misc.imread(gt_image_file)
+                image = cv2.imread(image_file)
+                gt_image = cv2.imread(gt_image_file)
                 #image, gt_image = random_crop(image, gt_image) #Random crop augmentation
-                image = scipy.misc.imresize(image, image_shape)
+                image = cv2.resize(image, image_shape)
                 contr = random.uniform(0.85, 1.15) # Contrast augmentation
                 bright = random.randint(-45, 30) # Brightness augmentation
                 image = bc_img(image, contr, bright)
-                gt_image = scipy.misc.imresize(gt_image, image_shape)
+                gt_image = cv2.resize(gt_image, image_shape)
                 gt_bg = np.all(gt_image == background_color, axis=2)
                 gt_bg = gt_bg.reshape(*gt_bg.shape, 1)
                 gt_image = np.concatenate((gt_bg, np.invert(gt_bg)), axis=2)
